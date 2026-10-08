@@ -151,7 +151,11 @@ export default function Dashboard({
 
       {/* Main Inspection & Severity Row */}
       <div className="dashboard-grid-row">
-        <DefectViewer wheel={activeWheel} customImage={customImage} />
+        <DefectViewer
+          wheel={activeWheel}
+          customImage={customImage}
+          onUploadCustomImage={handleUploadCustomImage}
+        />
         <SeverityCard wheel={activeWheel} onTriggerDisposition={handleTriggerDisposition} />
       </div>
 

@@ -1,14 +1,28 @@
 import React, { useState } from 'react';
 import './DefectViewer.css';
 
-export default function DefectViewer({ wheel, customImage }) {
+export default function DefectViewer({ wheel, customImage, onUploadCustomImage }) {
   const [showBoundingBox, setShowBoundingBox] = useState(true);
   const [showHeatmap, setShowHeatmap] = useState(false);
   const [showGrid, setShowGrid] = useState(true);
   const [zoomLevel, setZoomLevel] = useState(1);
   const [isHoveredBox, setIsHoveredBox] = useState(false);
+  const [isDraggingOver, setIsDraggingOver] = useState(false);
 
   const defect = wheel.defect;
+
+  const handleDrop = (e) => {
+    e.preventDefault();
+    setIsDraggingOver(false);
+    const file = e.dataTransfer?.files?.[0];
+    if (file && onUploadCustomImage) {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        onUploadCustomImage(event.target.result, file.name);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
 
   return (
     <div className="glass-panel col-7 defect-viewer-panel">
@@ -76,7 +90,15 @@ export default function DefectViewer({ wheel, customImage }) {
       </div>
 
       {/* Main Wheel Visual Display */}
-      <div className="viewer-viewport">
+      <div
+        className={`viewer-viewport ${isDraggingOver ? 'drag-over' : ''}`}
+        onDragOver={(e) => {
+          e.preventDefault();
+          setIsDraggingOver(true);
+        }}
+        onDragLeave={() => setIsDraggingOver(false)}
+        onDrop={handleDrop}
+      >
         <div
           className="viewport-inner"
           style={{ transform: `scale(${zoomLevel})`, transition: 'transform 0.25s ease' }}
