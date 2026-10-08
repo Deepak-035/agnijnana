@@ -67,32 +67,36 @@ export default function WheelInspection({
         </div>
 
         <div className="header-action-group">
-          {/* Bulletproof Native Overlay File Input & Dropzone */}
-          <div
-            className="upload-input-container"
+          {/* Robust, accessible file upload via native label association */}
+          <input
+            id="wheel-specimen-file-input"
+            type="file"
+            ref={fileInputRef}
+            onChange={handleFileChange}
+            accept="image/png,image/jpeg,image/jpg,image/webp,image/*"
+            className="visually-hidden-file-input"
+            tabIndex={-1}
+          />
+          <label
+            htmlFor="wheel-specimen-file-input"
+            className="btn btn-secondary btn-sm upload-image-label-btn"
+            title="Click or drag & drop to upload a custom wheel image"
             onDrop={handleDrop}
             onDragOver={handleDragOver}
-            title="Click or drag & drop to upload a custom wheel image"
+            tabIndex={0}
+            role="button"
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                fileInputRef.current?.click();
+              }
+            }}
           >
-            <input
-              type="file"
-              ref={fileInputRef}
-              onChange={handleFileChange}
-              accept="image/png,image/jpeg,image/jpg,image/webp,image/*"
-              className="upload-hidden-native-input"
-              aria-label="Upload Wheel Image"
-            />
-            <button
-              type="button"
-              className="btn btn-secondary btn-sm upload-proxy-btn"
-              tabIndex={-1}
-            >
-              <svg viewBox="0 0 20 20" width="16" height="16" fill="currentColor">
-                <path fillRule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM6.293 6.707a1 1 0 010-1.414l3-3a1 1 0 011.414 0l3 3a1 1 0 01-1.414 1.414L11 5.414V13a1 1 0 11-2 0V5.414L7.707 6.707a1 1 0 01-1.414 0z" clipRule="evenodd" />
-              </svg>
-              Upload Image
-            </button>
-          </div>
+            <svg viewBox="0 0 20 20" width="16" height="16" fill="currentColor">
+              <path fillRule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM6.293 6.707a1 1 0 010-1.414l3-3a1 1 0 011.414 0l3 3a1 1 0 01-1.414 1.414L11 5.414V13a1 1 0 11-2 0V5.414L7.707 6.707a1 1 0 01-1.414 0z" clipRule="evenodd" />
+            </svg>
+            <span>Upload Image</span>
+          </label>
 
           {customImage && (
             <button className="btn btn-secondary btn-sm" onClick={onResetCustomImage}>
