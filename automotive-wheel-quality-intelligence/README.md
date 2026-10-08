@@ -51,7 +51,7 @@ Aluminium Wheel/Rim
 | **Ashish** | Backend / FastAPI Lead | FastAPI architecture, REST endpoints (`/inspection`, `/defects`, `/root-cause`, etc.), AI model serving, DB integration, Auth/RBAC, payload validation. |
 | **Ganesh** | Frontend / UI Lead | React + Vite Wheel Quality Dashboard, wheel inspection viewer, defect overlays, severity/root-cause/risk visualization, operator UX. |
 | **Deepak** | Database Lead | PostgreSQL schema design, `wheels`, `casting batches`, `machines`, `production cycles`, `process_data`, `defects`, `predictions`, `alerts`. |
-| **Vijeath** | Data + AI/ML Lead | Aluminium wheel dataset acquisition, preprocessing, defect detection model, severity mapping, tabular RCA model, risk forecasting, inference export. |
+| **Vijeth** | Data + AI/ML Lead | Aluminium wheel dataset acquisition, preprocessing, defect detection model, severity mapping, tabular RCA model, risk forecasting, inference export. |
 
 **Shared**: Documentation, Integration testing, CI/CD pipeline, End-to-end deployment.
 
