@@ -1,5 +1,9 @@
 from fastapi import APIRouter, status
-from app.schemas.quality import WheelAIOutputContract
+
+from app.schemas.quality import (
+    WheelAIOutputContract,
+    WheelInspectionRequest,
+)
 
 router = APIRouter()
 
@@ -8,50 +12,54 @@ router = APIRouter()
     "/inspect",
     response_model=WheelAIOutputContract,
     status_code=status.HTTP_200_OK,
-    summary="Inspect aluminium wheel for defects (Placeholder)",
+    summary="Inspect an aluminium alloy wheel",
 )
-def inspect_wheel():
+def inspect_wheel(request: WheelInspectionRequest):
     """
-    Submit an aluminium wheel/rim image and metadata for defect inspection.
-    TODO — DECISION REQUIRED: Connect to Vijeath's defect detection inference pipeline.
+    Submit an aluminium alloy wheel image for inspection.
+
+    AI model integration will be connected after the dataset
+    and inference pipeline are finalized.
     """
-    return {
-        "wheel_id": "PENDING-WHEEL-INSPECTION",
-        "batch_id": "PENDING",
-        "machine_id": "PENDING",
-        "defect_type": "none",
-        "location": "none",
-        "severity": "Low",
-        "defect_confidence": 0.0,
-        "root_cause": "Pending model integration",
-        "root_cause_confidence": 0.0,
-        "future_risk": 0.0,
-        "recommended_action": "Pending model integration",
-        "affected_batches": [],
-    }
+
+    return WheelAIOutputContract(
+        wheel_id=request.wheel_id,
+        batch_id=request.batch_id,
+        machine_id=request.machine_id,
+        defect_type=None,
+        location=None,
+        severity=None,
+        defect_confidence=None,
+        root_cause=None,
+        root_cause_confidence=None,
+        future_risk=None,
+        recommended_action=None,
+        affected_batches=[],
+    )
 
 
 @router.get(
     "/{wheel_id}",
     response_model=WheelAIOutputContract,
-    summary="Get inspection result for a wheel (Placeholder)",
+    summary="Get inspection result for a wheel",
 )
 def get_inspection(wheel_id: str):
     """
-    Retrieve the inspection report for a specific aluminium wheel.
-    TODO — DECISION REQUIRED: Integrate with database inspection records.
+    Retrieve the inspection result for a specific wheel.
+
+    Database integration will be added after the inspection
+    persistence layer is finalized.
     """
-    return {
-        "wheel_id": wheel_id,
-        "batch_id": "PENDING",
-        "machine_id": "PENDING",
-        "defect_type": "none",
-        "location": "none",
-        "severity": "Low",
-        "defect_confidence": 0.0,
-        "root_cause": "Pending model integration",
-        "root_cause_confidence": 0.0,
-        "future_risk": 0.0,
-        "recommended_action": "Pending model integration",
-        "affected_batches": [],
-    }
+
+    return WheelAIOutputContract(
+        wheel_id=wheel_id,
+        defect_type=None,
+        location=None,
+        severity=None,
+        defect_confidence=None,
+        root_cause=None,
+        root_cause_confidence=None,
+        future_risk=None,
+        recommended_action=None,
+        affected_batches=[],
+    )
