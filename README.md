@@ -1,34 +1,27 @@
-# Agnijnana – Automotive Wheel Quality Intelligence
+# Automotive Wheel Quality Intelligence
 
-**Built during Singularity Hackathon 2026 — 24-Hour Hackathon**
+**Developed by Team Agnijnana**
+**Singularity Hackathon 2026 | 24-Hour Hackathon**
 
 ## About the Project
 
-Agnijnana is an AI-powered automotive wheel quality inspection system developed during a 24-hour hackathon. It uses computer vision and machine learning to detect wheel defects and combines database management, backend APIs, and a web interface to support quality inspection and analysis.
+An AI-powered automotive wheel quality inspection system that uses computer vision and deep learning to detect wheel defects and identify rim components. The system integrates AI models, backend APIs, database management, and a web-based interface to support automated quality inspection.
 
-## Team Contributions
+## Team Agnijnana
 
 - **Deepak – Team Lead:** Managed the database, trained the defect detection model, and coordinated the team.
 - **Vijeth – ML & Backend:** Trained the rim detection model and assisted with backend development.
-- **Ashish – Backend Lead:** Led backend development and handled API integrations.
-- **Ganesh – Frontend Developer:** Developed the complete frontend and merged the final changes.
-
-## Key Features
-
-- YOLO-based wheel defect detection.
-- AI-based rim detection.
-- Database integration and backend API connectivity.
-- Web-based interface for displaying inspection results.
+- **Ashish – Backend Lead:** Led backend development and API integrations.
+- **Ganesh – Frontend Developer:** Developed the frontend and merged the final changes.
 
 ## Tech Stack
 
 ### Frontend
-- React.js (18)
+- React.js
 - Vite
 - Three.js
 - React Three Fiber
 - React Three Drei
-- React Three Postprocessing
 
 ### Backend
 - Python
@@ -36,42 +29,31 @@ Agnijnana is an AI-powered automotive wheel quality inspection system developed 
 - Uvicorn
 - Pydantic
 - SQLAlchemy
-- Psycopg2
 
 ### AI / Machine Learning
 - PyTorch
 - TorchVision
 - Ultralytics YOLO
 - OpenCV
-- Pillow (PIL)
+- Pillow
 
 ### Database
 - PostgreSQL
-- Supabase (PostgreSQL database platform)
+- Supabase
 
-### Data Processing & Evaluation
+### Data Processing & Testing
 - NumPy
 - Pandas
 - Scikit-learn
 - Matplotlib
-- PyYAML
-
-### Testing & Utilities
 - Pytest
 - HTTPX
-- Python Dotenv
-- tqdm
-
-### Development Tools
-- Git
-- GitHub
-- Vite Development Server
 
 ## Repository
 
-[GitHub – Agnijnana](https://github.com/Deepak-035/agnijnana)
+[GitHub – Automotive Wheel Quality Intelligence](https://github.com/Deepak-035/agnijnana)
 
 ---
 
-**Developed by Team Agnijnana**  
-*Created during a 24-hour hackathon at Singularity 2026.*
+**Team Agnijnana | Singularity Hackathon 2026**
+*Building smarter automotive quality inspection through AI.*
