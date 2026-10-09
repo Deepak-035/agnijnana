@@ -1,39 +1,126 @@
 import React, { useState } from 'react';
+import Navbar from './components/Navbar/Navbar';
+import ThreeDLanding from './components/ThreeDLanding/ThreeDLanding';
+import Landing from './pages/Landing/Landing';
 import Dashboard from './pages/Dashboard/Dashboard';
+import FlowchartPage from './pages/FlowchartPage/FlowchartPage';
+import BatchesPage from './pages/BatchesPage/BatchesPage';
+import TeamPage from './pages/TeamPage/TeamPage';
+import ArchitecturePage from './pages/ArchitecturePage/ArchitecturePage';
+import Toast from './components/Toast/Toast';
 import './App.css';
 
 export default function App() {
+  // Automatically activates 3D landing animation when page is loaded / refreshed
+  const [show3DIntro, setShow3DIntro] = useState(true);
   const [activeTab, setActiveTab] = useState('dashboard');
+  const [selectedWheelIndex, setSelectedWheelIndex] = useState(0);
+  const [toast, setToast] = useState(null);
+  const [userRole, setUserRole] = useState('QA_LEAD'); // 'QA_LEAD' | 'OPERATOR' (Item 8: RBAC)
+
+  const handleNotify = (message, type = 'info') => {
+    setToast({ message, type });
+    setTimeout(() => {
+      setToast(null);
+    }, 4500);
+  };
+
+  const handleToggleRole = () => {
+    const next = userRole === 'QA_LEAD' ? 'OPERATOR' : 'QA_LEAD';
+    setUserRole(next);
+    handleNotify(
+      next === 'QA_LEAD'
+        ? 'Switched clearance to QA Metrology Lead (Full Disposition & Sign-Off Authorization)'
+        : 'Switched clearance to Line Operator (Read & Inspection Only — Dispositions Guarded)',
+      'info'
+    );
+  };
+
+  const handleSimulateNewScan = () => {
+    setSelectedWheelIndex((prev) => (prev + 1) % 5);
+    setActiveTab('dashboard');
+    setShow3DIntro(false);
+    handleNotify('Cycled sample to next wheel specimen. Running vision inference...', 'info');
+  };
+
+  const handleEnterCockpit = () => {
+    setShow3DIntro(false);
+    setActiveTab('dashboard');
+  };
+
+  const handleEnterOverview = () => {
+    setShow3DIntro(false);
+    setActiveTab('landing');
+  };
+
+  const handleReplayIntro = () => {
+    sessionStorage.removeItem('wqi-intro');
+    setShow3DIntro(true);
+  };
 
   return (
-    <div className="app-container">
-      <header className="app-header">
-        <div>
-          <h1 className="app-title">Aluminium Wheel Quality Intelligence System</h1>
-          <p style={{ fontSize: '0.85rem', color: '#94a3b8', marginTop: '0.2rem' }}>
-            SINGULARITY 2026 — Track 3 Quality Intelligence Cockpit
-          </p>
-        </div>
-        <span
-          style={{
-            backgroundColor: '#0369a1',
-            color: '#e0f2fe',
-            fontSize: '0.75rem',
-            fontWeight: '700',
-            padding: '0.35rem 0.85rem',
-            borderRadius: '9999px',
-            textTransform: 'uppercase',
-            letterSpacing: '0.05em',
-            border: '1px solid #0284c7',
-          }}
-        >
-          LIVE PROTOTYPE
-        </span>
-      </header>
+    <div className="app-shell">
+      {/* 3D Falling Tyre & Bouncing Logo Landing Screen */}
+      {show3DIntro && (
+        <ThreeDLanding
+          onEnterCockpit={handleEnterCockpit}
+          onEnterOverview={handleEnterOverview}
+        />
+      )}
 
-      <main>
-        <Dashboard />
+      {/* Top Glassmorphic Navigation Bar */}
+      <Navbar
+        activeTab={activeTab}
+        setActiveTab={(tab) => {
+          setShow3DIntro(false);
+          setActiveTab(tab);
+        }}
+        onSimulateNewScan={handleSimulateNewScan}
+        onReplayIntro={handleReplayIntro}
+      />
+
+      {/* Main View Container */}
+      <main className="app-main-content">
+        {activeTab === 'landing' && (
+          <Landing
+            onLaunchDashboard={() => setActiveTab('dashboard')}
+            onOpenFlowchart={() => setActiveTab('flowchart')}
+            onSelectSample={(idx) => {
+              setSelectedWheelIndex(idx);
+              setActiveTab('dashboard');
+            }}
+          />
+        )}
+
+        {activeTab === 'dashboard' && (
+          <Dashboard
+            selectedWheelIndex={selectedWheelIndex}
+            setSelectedWheelIndex={setSelectedWheelIndex}
+            onNotify={handleNotify}
+          />
+        )}
+
+        {activeTab === 'flowchart' && (
+          <FlowchartPage onLaunchDashboard={() => setActiveTab('dashboard')} />
+        )}
+
+        {activeTab === 'telemetry' && <BatchesPage />}
+
+        {activeTab === 'team' && <TeamPage />}
+
+        {activeTab === 'architecture' && (
+          <ArchitecturePage onLaunchDashboard={() => setActiveTab('dashboard')} />
+        )}
       </main>
+
+      {/* Toast Notification Alert */}
+      {toast && (
+        <Toast
+          message={toast.message}
+          type={toast.type}
+          onClose={() => setToast(null)}
+        />
+      )}
     </div>
   );
 }

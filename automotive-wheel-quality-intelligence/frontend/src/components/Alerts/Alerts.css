@@ -1,0 +1,272 @@
+.alerts-panel {
+  padding: 1rem 1.15rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  background: radial-gradient(130% 100% at 50% 0%, rgba(14, 28, 54, 0.75) 0%, rgba(8, 14, 28, 0.9) 100%);
+  border: 1px solid rgba(56, 189, 248, 0.22);
+}
+
+.alerts-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+}
+
+.alerts-title-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.alerts-heading {
+  font-size: 1.05rem;
+  color: #ffffff;
+  font-family: var(--display, 'Outfit', sans-serif);
+  margin: 0;
+}
+
+.alerts-header-pills {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Cross-Batch Propagation Box (Item 7) */
+.batch-propagation-alert-box {
+  background: rgba(12, 22, 40, 0.85);
+  border: 1px solid rgba(245, 158, 11, 0.35);
+  border-radius: 10px;
+  padding: 0.75rem 0.95rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+
+.propagation-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.prop-icon-title {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.prop-heading {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #fbbf24;
+  letter-spacing: 0.05em;
+}
+
+.held-toast {
+  font-size: 0.68rem;
+  animation: fadeIn 0.3s ease;
+}
+
+.propagation-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.75rem;
+}
+
+.propagation-card {
+  background: rgba(15, 23, 42, 0.75);
+  border: 1px solid;
+  border-radius: 8px;
+  padding: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.prop-card-crit {
+  border-color: rgba(239, 68, 68, 0.35);
+  background: rgba(239, 68, 68, 0.04);
+}
+
+.prop-card-warn {
+  border-color: rgba(245, 158, 11, 0.35);
+  background: rgba(245, 158, 11, 0.04);
+}
+
+.prop-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.prop-id-row {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.lot-id {
+  font-size: 0.78rem;
+  color: #ffffff;
+}
+
+.prop-risk-tag {
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
+.prop-vector-desc {
+  font-size: 0.72rem;
+  color: #94a3b8;
+  line-height: 1.35;
+  margin: 0;
+}
+
+.prop-action-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 0.2rem;
+}
+
+.prop-status-label {
+  font-size: 0.62rem;
+  color: #64748b;
+  letter-spacing: 0.04em;
+}
+
+.btn-preemptive-hold {
+  background: rgba(245, 158, 11, 0.15);
+  border: 1px solid rgba(245, 158, 11, 0.4);
+  color: #fbbf24;
+  font-size: 0.68rem;
+  font-weight: 700;
+  padding: 0.2rem 0.55rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-preemptive-hold:hover {
+  background: rgba(245, 158, 11, 0.3);
+  border-color: #f59e0b;
+  color: #ffffff;
+  box-shadow: 0 0 10px rgba(245, 158, 11, 0.3);
+}
+
+.locked-pill {
+  font-size: 0.64rem;
+  font-weight: 700;
+  color: #34d399;
+}
+
+/* Feed Grid */
+.alerts-feed-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.75rem;
+}
+
+.alert-feed-card {
+  background: rgba(11, 18, 32, 0.75);
+  border: 1px solid var(--border-subtle);
+  border-radius: 8px;
+  padding: 0.85rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  transition: all 0.2s ease;
+}
+
+.card-crit {
+  border-color: rgba(239, 68, 68, 0.3);
+  background: rgba(239, 68, 68, 0.03);
+}
+
+.card-warn {
+  border-color: rgba(245, 158, 11, 0.3);
+  background: rgba(245, 158, 11, 0.03);
+}
+
+.card-info {
+  border-color: rgba(56, 189, 248, 0.3);
+  background: rgba(56, 189, 248, 0.03);
+}
+
+.alert-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.alert-badge-group {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.alert-id {
+  font-size: 0.68rem;
+  color: var(--text-secondary);
+}
+
+.alert-time-source {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.alert-time {
+  font-size: 0.64rem;
+  color: var(--text-muted);
+}
+
+.dismiss-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  font-size: 0.7rem;
+}
+
+.dismiss-btn:hover {
+  color: #ffffff;
+}
+
+.alert-title {
+  font-size: 0.8rem;
+  color: #ffffff;
+  font-weight: 600;
+  margin: 0;
+}
+
+.alert-msg {
+  font-size: 0.72rem;
+  color: var(--text-secondary);
+  line-height: 1.4;
+  margin: 0;
+  flex: 1;
+}
+
+.alert-card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.62rem;
+  color: var(--text-muted);
+  border-top: 1px dashed rgba(255, 255, 255, 0.05);
+  padding-top: 0.35rem;
+}
+
+@media (max-width: 1200px) {
+  .alerts-feed-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .propagation-cards-grid {
+    grid-template-columns: 1fr;
+  }
+}

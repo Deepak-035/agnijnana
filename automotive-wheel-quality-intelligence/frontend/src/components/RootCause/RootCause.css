@@ -1,0 +1,318 @@
+.root-cause-panel {
+  padding: 1rem 1.15rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  background: radial-gradient(130% 100% at 50% 0%, rgba(14, 28, 54, 0.75) 0%, rgba(8, 14, 28, 0.9) 100%);
+  border: 1px solid rgba(56, 189, 248, 0.22);
+}
+
+.rca-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+}
+
+.rca-title-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.rca-main-title {
+  font-size: 1.05rem;
+  color: #ffffff;
+  font-family: var(--display, 'Outfit', sans-serif);
+  margin: 0;
+}
+
+.rca-confidence-chip {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  background: rgba(0, 240, 255, 0.08);
+  border: 1px solid rgba(0, 240, 255, 0.3);
+  padding: 0.25rem 0.55rem;
+  border-radius: 6px;
+}
+
+.conf-label {
+  font-size: 0.6rem;
+  color: #94a3b8;
+  letter-spacing: 0.05em;
+}
+
+.conf-val {
+  font-size: 0.82rem;
+  color: var(--accent-cyan);
+  font-weight: 700;
+}
+
+/* Diagnosis Banner */
+.rca-diagnosis-banner {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  background: rgba(14, 30, 56, 0.8);
+  border: 1px solid rgba(56, 189, 248, 0.25);
+  border-left: 4px solid var(--accent-cyan);
+  border-radius: 8px;
+  padding: 0.75rem 0.95rem;
+}
+
+.diagnosis-icon-ring {
+  width: 32px;
+  height: 32px;
+  background: rgba(0, 240, 255, 0.12);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent-cyan);
+  flex-shrink: 0;
+}
+
+.diagnosis-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.diagnosis-label {
+  font-size: 0.65rem;
+  color: var(--accent-cyan);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  font-family: var(--mono, monospace);
+}
+
+.diagnosis-text {
+  font-size: 0.88rem;
+  color: #f1f5f9;
+  line-height: 1.45;
+  margin: 0;
+}
+
+/* Telemetry Section */
+.telemetry-section-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.68rem;
+  color: #64748b;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  font-family: var(--mono, monospace);
+}
+
+.status-hint {
+  font-size: 0.62rem;
+  color: #475569;
+}
+
+.telemetry-gauges-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.75rem;
+}
+
+.telemetry-cell {
+  background: rgba(10, 18, 33, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 8px;
+  padding: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  transition: all 0.2s ease;
+}
+
+.telemetry-cell:hover {
+  border-color: rgba(56, 189, 248, 0.35);
+  background: rgba(15, 26, 48, 0.9);
+}
+
+.cell-crit {
+  border-color: rgba(239, 68, 68, 0.35);
+  background: rgba(239, 68, 68, 0.04);
+}
+
+.cell-warn {
+  border-color: rgba(245, 158, 11, 0.35);
+  background: rgba(245, 158, 11, 0.04);
+}
+
+.sensor-name-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.sensor-name {
+  font-size: 0.72rem;
+  color: #cbd5e1;
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.status-pill {
+  font-size: 0.58rem;
+  font-weight: 700;
+  padding: 0.1rem 0.35rem;
+  border-radius: 3px;
+  letter-spacing: 0.03em;
+  font-family: var(--mono, monospace);
+  white-space: nowrap;
+}
+
+.pill-crit { background: rgba(239, 68, 68, 0.2); color: #f87171; }
+.pill-warn { background: rgba(245, 158, 11, 0.2); color: #fbbf24; }
+.pill-ok   { background: rgba(16, 185, 129, 0.2); color: #34d399; }
+
+.sensor-val-row {
+  display: flex;
+  align-items: baseline;
+  gap: 0.35rem;
+}
+
+.sensor-value {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.sensor-unit {
+  font-size: 0.68rem;
+  color: #94a3b8;
+}
+
+/* Range Track */
+.sensor-range-track {
+  position: relative;
+  height: 6px;
+  background: rgba(15, 23, 42, 0.8);
+  border-radius: 3px;
+  overflow: visible;
+  margin: 0.2rem 0;
+}
+
+.range-nominal-band {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  background: rgba(16, 185, 129, 0.25);
+  border-radius: 2px;
+}
+
+.range-cursor-pip {
+  position: absolute;
+  top: -3px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  transform: translateX(-50%);
+  box-shadow: 0 0 8px currentColor;
+}
+
+.pip-crit { background: #ef4444; color: #ef4444; }
+.pip-warn { background: #f59e0b; color: #f59e0b; }
+.pip-ok   { background: #10b981; color: #10b981; }
+
+.sensor-limits-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.62rem;
+  color: #64748b;
+}
+
+/* SHAP Attributions Block */
+.shap-attributions-block {
+  background: rgba(10, 18, 33, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  padding: 0.85rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.shap-block-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.65rem;
+}
+
+.shap-title {
+  color: var(--accent-blue);
+  font-weight: 700;
+  letter-spacing: 0.05em;
+}
+
+.shap-sub {
+  color: #64748b;
+}
+
+.shap-bars-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.shap-bar-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.shap-feature-name {
+  font-size: 0.72rem;
+  color: #cbd5e1;
+  width: 170px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.shap-bar-track {
+  flex: 1;
+  height: 6px;
+  background: rgba(15, 23, 42, 0.8);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.shap-bar-fill {
+  height: 100%;
+  border-radius: 3px;
+  transition: width 0.4s ease;
+}
+
+.shap-fill-neg {
+  background: linear-gradient(90deg, #f59e0b 0%, #ef4444 100%);
+  box-shadow: 0 0 8px rgba(239, 68, 68, 0.4);
+}
+
+.shap-fill-pos {
+  background: linear-gradient(90deg, #0284c7 0%, #10b981 100%);
+  box-shadow: 0 0 8px rgba(16, 185, 129, 0.4);
+}
+
+.shap-impact-val {
+  font-size: 0.72rem;
+  color: #fca5a5;
+  width: 42px;
+  text-align: right;
+  font-weight: 600;
+}
+
+@media (max-width: 900px) {
+  .telemetry-gauges-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}

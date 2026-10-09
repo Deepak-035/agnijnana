@@ -1,0 +1,126 @@
+.batch-table-panel {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.15rem;
+}
+
+.batch-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.batch-title-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.batch-heading {
+  font-size: 1.15rem;
+  color: #ffffff;
+}
+
+.batch-filter-btns {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.filter-btn {
+  background: rgba(15, 23, 42, 0.7);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-secondary);
+  font-size: 0.76rem;
+  padding: 0.35rem 0.75rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.filter-btn:hover {
+  color: #ffffff;
+  background: rgba(30, 41, 59, 0.8);
+}
+
+.filter-btn.active {
+  background: rgba(2, 132, 199, 0.25);
+  border-color: var(--accent-cyan);
+  color: #ffffff;
+}
+
+.table-responsive {
+  overflow-x: auto;
+}
+
+.batch-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.batch-table th {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: var(--text-muted);
+  letter-spacing: 0.05em;
+  padding: 0.75rem 0.85rem;
+  border-bottom: 1px solid var(--border-subtle);
+  white-space: nowrap;
+}
+
+.batch-row {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  transition: background 0.18s ease;
+}
+
+.batch-row:hover {
+  background: rgba(30, 41, 59, 0.4);
+}
+
+.batch-table td {
+  padding: 0.85rem 0.85rem;
+  font-size: 0.82rem;
+}
+
+.batch-id-cell {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.batch-num {
+  font-weight: 600;
+  color: #ffffff;
+  font-size: 0.8rem;
+}
+
+.heat-num {
+  font-size: 0.68rem;
+  color: var(--text-muted);
+}
+
+.alloy-cell {
+  color: var(--text-alloy);
+  white-space: nowrap;
+}
+
+.unit-cell {
+  color: var(--accent-cyan);
+}
+
+.count-cell {
+  white-space: nowrap;
+}
+
+.scrap-rate {
+  font-weight: 700;
+}
+
+.issue-cell {
+  color: var(--text-secondary);
+  font-size: 0.78rem;
+  max-width: 220px;
+}

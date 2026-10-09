@@ -1,0 +1,381 @@
+.risk-panel {
+  padding: 1rem 1.15rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  background: radial-gradient(130% 100% at 50% 0%, rgba(14, 28, 54, 0.75) 0%, rgba(8, 14, 28, 0.9) 100%);
+  border: 1px solid rgba(56, 189, 248, 0.22);
+}
+
+.risk-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.risk-title-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.risk-heading {
+  font-size: 1.05rem;
+  color: #ffffff;
+  font-family: var(--display, 'Outfit', sans-serif);
+  margin: 0;
+}
+
+.risk-gauge-block {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background: rgba(10, 18, 33, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+  padding: 0.85rem;
+}
+
+.gauge-metric-circle {
+  position: relative;
+  width: 88px;
+  height: 88px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.gauge-circle-stroke {
+  filter: drop-shadow(0 0 10px currentColor);
+}
+
+.gauge-text-overlay {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.gauge-pct {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.gauge-sub {
+  font-size: 0.58rem;
+  color: #64748b;
+  letter-spacing: 0.05em;
+  margin-top: -0.1rem;
+}
+
+.gauge-details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  flex: 1;
+}
+
+.health-status-row, .cycles-remaining-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.72rem;
+}
+
+.health-label, .cycles-label {
+  color: #64748b;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.health-val {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-weight: 700;
+}
+
+.health-pip {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+}
+.health-pip.pip-crit { background: #ef4444; box-shadow: 0 0 8px #ef4444; }
+.health-pip.pip-warn { background: #f59e0b; box-shadow: 0 0 8px #f59e0b; }
+.health-pip.pip-ok   { background: #10b981; box-shadow: 0 0 8px #10b981; }
+
+.cycles-val {
+  color: #f1f5f9;
+  font-weight: 600;
+}
+
+.forecast-advisory-msg {
+  background: rgba(15, 23, 42, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 6px;
+  padding: 0.6rem 0.75rem;
+  margin-top: 0.2rem;
+}
+
+.advisory-title {
+  font-size: 0.62rem;
+  color: var(--accent-cyan);
+  font-weight: 700;
+  display: block;
+  margin-bottom: 0.2rem;
+}
+
+.forecast-advisory-msg p {
+  font-size: 0.78rem;
+  color: #94a3b8;
+  line-height: 1.4;
+  margin: 0;
+}
+
+/* Fleet Machine Risk Ranking Card (Item 4) */
+.fleet-prediction-card {
+  background: rgba(10, 18, 33, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+  padding: 0.9rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.fleet-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+}
+
+.fleet-header-title {
+  color: var(--accent-cyan);
+}
+
+.fleet-ranking-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.fleet-rank-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  background: rgba(15, 23, 42, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  border-radius: 6px;
+  padding: 0.45rem 0.65rem;
+  transition: all 0.15s ease;
+}
+
+.fleet-rank-row:hover {
+  background: rgba(20, 32, 56, 0.8);
+  border-color: rgba(56, 189, 248, 0.3);
+}
+
+.rank-row-top {
+  border-color: rgba(239, 68, 68, 0.35);
+  background: rgba(239, 68, 68, 0.06);
+}
+
+.rank-badge {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--accent-blue);
+  width: 24px;
+}
+
+.rank-machine-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  flex: 1;
+}
+
+.rank-machine-code-row {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.rank-code {
+  font-size: 0.76rem;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.rank-name {
+  font-size: 0.68rem;
+  color: #94a3b8;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 140px;
+}
+
+.rank-defect-predicted {
+  font-size: 0.64rem;
+  color: #fca5a5;
+  font-family: var(--mono, monospace);
+}
+
+.rank-prob-col {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.2rem;
+  width: 100px;
+}
+
+.rank-prob-bar-track {
+  width: 100%;
+  height: 5px;
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.rank-prob-bar-fill {
+  height: 100%;
+  border-radius: 3px;
+}
+.bar-crit { background: #ef4444; box-shadow: 0 0 6px #ef4444; }
+.bar-warn { background: #f59e0b; box-shadow: 0 0 6px #f59e0b; }
+.bar-ok   { background: #10b981; box-shadow: 0 0 6px #10b981; }
+
+.rank-prob-val {
+  font-size: 0.68rem;
+  font-weight: 700;
+}
+
+/* Batch Forecast Strip (Item 4 & 7) */
+.batch-forecast-strip {
+  background: rgba(10, 18, 33, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+  padding: 0.9rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.batch-strip-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+}
+
+.batch-strip-title {
+  color: var(--accent-blue);
+}
+
+.batch-forecast-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.6rem;
+}
+
+.batch-forecast-card {
+  background: rgba(15, 23, 42, 0.7);
+  border: 1px solid;
+  border-radius: 6px;
+  padding: 0.5rem 0.65rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.card-crit {
+  border-color: rgba(239, 68, 68, 0.35);
+  background: rgba(239, 68, 68, 0.05);
+}
+
+.card-warn {
+  border-color: rgba(245, 158, 11, 0.35);
+  background: rgba(245, 158, 11, 0.05);
+}
+
+.b-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.b-id {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.b-risk-pct {
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: #fca5a5;
+}
+
+.b-vector {
+  font-size: 0.62rem;
+  color: #94a3b8;
+  line-height: 1.3;
+}
+
+.b-action {
+  font-size: 0.58rem;
+  color: var(--accent-cyan);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  margin-top: 0.15rem;
+}
+
+/* Trend Box */
+.risk-trend-box {
+  background: rgba(10, 18, 33, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+  padding: 0.9rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.trend-box-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.65rem;
+}
+
+.trend-title {
+  color: var(--accent-blue);
+  font-weight: 700;
+  letter-spacing: 0.05em;
+}
+
+.trend-curr {
+  color: #fca5a5;
+  font-weight: 600;
+}
+
+.sparkline-wrapper {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media (max-width: 900px) {
+  .batch-forecast-grid {
+    grid-template-columns: 1fr;
+  }
+}
