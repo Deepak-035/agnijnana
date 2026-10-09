@@ -159,7 +159,7 @@ cd frontend
 npm install
 npm run dev
 ```
-Dashboard: `http://localhost:5173`
+Dashboard: `http://localhost:5188`
 
 ### 4. Database Setup
 ```bash

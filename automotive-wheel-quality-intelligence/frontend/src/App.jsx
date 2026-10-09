@@ -16,12 +16,24 @@ export default function App() {
   const [activeTab, setActiveTab] = useState('dashboard');
   const [selectedWheelIndex, setSelectedWheelIndex] = useState(0);
   const [toast, setToast] = useState(null);
+  const [userRole, setUserRole] = useState('QA_LEAD'); // 'QA_LEAD' | 'OPERATOR' (Item 8: RBAC)
 
   const handleNotify = (message, type = 'info') => {
     setToast({ message, type });
     setTimeout(() => {
       setToast(null);
     }, 4500);
+  };
+
+  const handleToggleRole = () => {
+    const next = userRole === 'QA_LEAD' ? 'OPERATOR' : 'QA_LEAD';
+    setUserRole(next);
+    handleNotify(
+      next === 'QA_LEAD'
+        ? 'Switched clearance to QA Metrology Lead (Full Disposition & Sign-Off Authorization)'
+        : 'Switched clearance to Line Operator (Read & Inspection Only — Dispositions Guarded)',
+      'info'
+    );
   };
 
   const handleSimulateNewScan = () => {

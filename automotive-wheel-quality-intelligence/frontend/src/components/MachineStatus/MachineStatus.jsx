@@ -10,11 +10,16 @@ export default function MachineStatus() {
           <span className="section-eyebrow">EQUIPMENT</span>
           <h3 className="machine-heading">Machine Fleet</h3>
         </div>
-        <span className="badge badge-info">4 Units Active</span>
+        <span className="badge badge-info">{MACHINES_DATA.length} Units Active</span>
       </div>
 
       <div className="machines-list">
-        {MACHINES_DATA.map((machine) => {
+        {MACHINES_DATA.length === 0 ? (
+          <div className="mono text-center" style={{ padding: '2rem 1rem', color: '#64748b' }}>
+            ⚡ SCADA Telemetry Gateway Standby • No active machine fleet units connected
+          </div>
+        ) : (
+          MACHINES_DATA.map((machine) => {
           const isOper = machine.status === 'OPERATIONAL';
           const isDegraded = machine.status === 'DEGRADED';
           const isMaint = machine.status === 'MAINTENANCE_REQUIRED';
@@ -68,7 +73,7 @@ export default function MachineStatus() {
               </div>
             </div>
           );
-        })}
+        }))}
       </div>
     </div>
   );

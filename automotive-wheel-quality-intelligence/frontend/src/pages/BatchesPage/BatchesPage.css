@@ -1,11 +1,12 @@
 .batches-page-layout {
-  padding: 1.5rem 2rem 3rem 2rem;
+  padding: 0.85rem 1.25rem 2rem 1.25rem;
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
-  max-width: 1540px;
+  gap: 1rem;
+  max-width: 1380px;
   margin: 0 auto;
   width: 100%;
+  box-sizing: border-box;
 }
 
 .page-header-strip {
@@ -17,25 +18,29 @@
 }
 
 .page-main-heading {
-  font-size: 1.4rem;
+  font-size: 1.25rem;
   color: #ffffff;
 }
 
 .page-sub-heading {
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   color: var(--text-secondary);
 }
 
 .batches-grid-row {
   display: grid;
   grid-template-columns: repeat(12, 1fr);
-  gap: 1.5rem;
+  gap: 1rem;
   width: 100%;
 }
 
 @media (max-width: 1100px) {
+  .batches-page-layout {
+    padding: 0.75rem 1rem 1.5rem;
+  }
   .batches-grid-row {
     display: flex;
     flex-direction: column;
   }
 }
+

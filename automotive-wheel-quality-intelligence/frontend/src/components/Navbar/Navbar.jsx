@@ -1,7 +1,12 @@
 import React from 'react';
 import './Navbar.css';
 
-export default function Navbar({ activeTab, setActiveTab, onSimulateNewScan, onReplayIntro }) {
+export default function Navbar({
+  activeTab,
+  setActiveTab,
+  onSimulateNewScan,
+  onReplayIntro,
+}) {
   return (
     <header className="navbar-container">
       <div className="navbar-left">
@@ -23,10 +28,10 @@ export default function Navbar({ activeTab, setActiveTab, onSimulateNewScan, onR
           </div>
           <div className="brand-text">
             <div className="brand-title brand-title-clean">
-              WHEEL QUALITY INTELLIGENCE
+              WHEEL & TYRE QUALITY
             </div>
             <div className="brand-tagline">
-              Inspect. Detect. Predict. Prevent.
+              Component Metrology & Process Control
             </div>
           </div>
         </div>
@@ -61,7 +66,7 @@ export default function Navbar({ activeTab, setActiveTab, onSimulateNewScan, onR
           <svg viewBox="0 0 20 20" width="16" height="16" fill="currentColor">
             <path fillRule="evenodd" d="M3 3a1 1 0 000 2v8a2 2 0 002 2h2.586l-1.293 1.293a1 1 0 101.414 1.414L10 15.414l2.293 2.293a1 1 0 001.414-1.414L12.414 15H15a2 2 0 002-2V5a1 1 0 100-2H3zm11 4a1 1 0 10-2 0v4a1 1 0 102 0V7zm-3 1a1 1 0 10-2 0v3a1 1 0 102 0V8zM8 9a1 1 0 00-2 0v2a1 1 0 102 0V9z" clipRule="evenodd" />
           </svg>
-          Quality Inspection Flowchart
+          Inspection Flowchart
         </button>
 
         <button
@@ -81,7 +86,7 @@ export default function Navbar({ activeTab, setActiveTab, onSimulateNewScan, onR
           <svg viewBox="0 0 20 20" width="16" height="16" fill="currentColor">
             <path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z" />
           </svg>
-          Team Mates
+          Team
         </button>
 
         <button
@@ -100,7 +105,7 @@ export default function Navbar({ activeTab, setActiveTab, onSimulateNewScan, onR
           <button
             className="btn btn-secondary btn-sm"
             onClick={onReplayIntro}
-            title="Replay 3D Tyre Intro Animation"
+            title="Replay 3D Intro"
           >
             <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2">
               <polygon points="5 3 19 12 5 21 5 3"></polygon>

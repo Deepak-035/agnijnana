@@ -21,16 +21,16 @@ const FLOW_STAGES = [
   {
     id: 'stage-2',
     number: '02',
-    category: 'COMPUTER VISION AI',
+    category: 'VISION INSPECTION',
     title: 'Defect Detection & Spatial Localization',
     latency: '38 ms',
     icon: '🎯',
     type: 'process',
-    badge: 'YOLOv8-Edge',
-    description: 'Spatial bounding box detection and pixel-level semantic segmentation identifying casting cracks, gas porosities, shrinkage cavities, and edge burrs.',
+    badge: 'Edge Classifier',
+    description: 'Spatial bounding box detection identifying casting cracks, gas porosities, shrinkage cavities, and edge burrs.',
     inputs: ['Normalized Optical / Radiograph Frame', 'Wheel Geometry Template (19" 8.5J)'],
     outputs: ['Defect Class (Crack, Porosity, Burr, Cavity)', 'Bounding Box Coordinates (x,y,w,h)', 'Confidence Probability (0.0 - 1.0)'],
-    modelSpecs: 'TensorRT FP16 Optimized Convolutional Network on NVIDIA Jetson AGX / T4',
+    modelSpecs: 'Optimized Convolutional Network on Edge Workstation',
     safetyMargin: 'Critical defect recall benchmark: 99.2%',
   },
   {
@@ -81,17 +81,17 @@ const FLOW_STAGES = [
   {
     id: 'stage-6',
     number: '06',
-    category: 'EXPLAINABLE AI',
-    title: 'Explainable Root Cause Analysis (RCA)',
+    category: 'ROOT CAUSE ANALYSIS',
+    title: 'Process Root Cause Analysis (RCA)',
     latency: '22 ms',
     icon: '🔍',
     type: 'process',
-    badge: 'TreeSHAP Attribution',
-    description: 'Physics-informed tabular ML model explains the root-cause by attributing exact percentage contributions to casting or machining telemetry anomalies.',
+    badge: 'Telemetry Attribution',
+    description: 'Process telemetry model attributes percentage contributions to casting or machining telemetry anomalies.',
     inputs: ['Synchronized Telemetry Feature Vector', 'Defect Type Classification', 'Historical Anomaly Matrices'],
-    outputs: ['Primary Root Cause Diagnostic', 'SHAP Attribution Impact Weights (%)', 'Confidence Score'],
-    modelSpecs: 'LightGBM Classifier + FastTreeSHAP Exact Feature Attribution Engine',
-    safetyMargin: 'Physically plausible bounds verification against casting thermodynamics',
+    outputs: ['Primary Root Cause Diagnostic', 'Parameter Impact Weights (%)', 'Confidence Score'],
+    modelSpecs: 'Classifier + Parameter Attribution Engine',
+    safetyMargin: 'Physically plausible bounds verification against casting parameters',
   },
   {
     id: 'stage-7',
@@ -156,11 +156,11 @@ export default function FlowchartPage({ onLaunchDashboard }) {
       <div className="flowchart-header">
         <div className="flowchart-badge">
           <span className="pulse-dot pulse-pass"></span>
-          <span>DETERMINISTIC INFERENCE WORKFLOW</span>
+          <span>QUALITY INSPECTION WORKFLOW</span>
         </div>
         <h1 className="flowchart-title">Quality Inspection Flowchart</h1>
         <p className="flowchart-subtitle">
-          Sub-second deterministic workflow spanning high-speed optical ingestion, vision AI, explainable root-cause telemetry, and closed-loop MES containment.
+          Workflow spanning optical ingestion, defect classification, root-cause telemetry attribution, and closed-loop MES containment.
         </p>
 
         {/* Latency & Accuracy KPI Bar */}
@@ -171,7 +171,7 @@ export default function FlowchartPage({ onLaunchDashboard }) {
           </div>
           <div className="kpi-box">
             <span className="kpi-value text-cyan">38 ms</span>
-            <span className="kpi-label">Vision Edge Inference</span>
+            <span className="kpi-label">Vision Inspection Takt</span>
           </div>
           <div className="kpi-box">
             <span className="kpi-value text-emerald">99.2%</span>

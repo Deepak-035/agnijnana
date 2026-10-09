@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { SAMPLE_WHEELS } from '../../data/mockData';
+import { SAMPLE_WHEELS, RIM_DEFECT_CLASSES, TYRE_DEFECT_CLASSES } from '../../data/mockData';
 import './Landing.css';
 
 export default function Landing({ onLaunchDashboard, onOpenFlowchart, onSelectSample }) {
   const [activeDefectIndex, setActiveDefectIndex] = useState(0);
-  const sample = SAMPLE_WHEELS[activeDefectIndex];
+  const sample = SAMPLE_WHEELS.length > 0 ? SAMPLE_WHEELS[activeDefectIndex] : null;
 
   return (
     <div className="landing-page">
@@ -16,16 +16,16 @@ export default function Landing({ onLaunchDashboard, onOpenFlowchart, onSelectSa
         <div className="hero-container">
           <div className="hero-badge">
             <span className="pulse-dot pulse-pass"></span>
-            <span>ALUMINIUM ALLOY WHEEL & RIM INTELLIGENCE</span>
+            <span>AUTOMOTIVE WHEEL & TYRE QUALITY INSPECTION</span>
           </div>
 
           <h1 className="hero-title">
-            AI Quality Intelligence for{' '}
-            <span className="gradient-text">Aluminium Wheels</span>
+            Quality Inspection System for{' '}
+            <span className="gradient-text">Aluminium Wheels & Tyres</span>
           </h1>
 
           <p className="hero-description">
-            Automated defect detection, root-cause analysis, and predictive scrap prevention for automotive alloy wheels.
+            Automated defect detection, root-cause analysis, and predictive scrap prevention for automotive alloy wheels and tyre assemblies.
           </p>
 
           <div className="hero-actions">
@@ -43,173 +43,198 @@ export default function Landing({ onLaunchDashboard, onOpenFlowchart, onSelectSa
             </button>
           </div>
 
-          {/* Quick Stat Strip */}
-          <div className="hero-stats-grid">
-            <div className="hero-stat-card">
-              <div className="stat-value">&lt; 38 ms</div>
-              <div className="stat-label">Inference Latency</div>
-              <div className="stat-sub">Real-time edge localization</div>
-            </div>
-            <div className="hero-stat-card">
-              <div className="stat-value text-cyan">99.2%</div>
-              <div className="stat-label">Critical Recall</div>
-              <div className="stat-sub">Zero defect escape rate</div>
-            </div>
-            <div className="hero-stat-card">
-              <div className="stat-value text-emerald">-38%</div>
-              <div className="stat-label">Scrap Reduction</div>
-              <div className="stat-sub">Early process drift detection</div>
-            </div>
-            <div className="hero-stat-card">
-              <div className="stat-value text-amber">100%</div>
-              <div className="stat-label">Lot Traceability</div>
-              <div className="stat-sub">Melt heat to finished rim</div>
-            </div>
-          </div>
+
         </div>
       </section>
 
       {/* Interactive Defect Showcase */}
       <section className="showcase-section">
-        <div className="section-header">
-          <div className="section-eyebrow">LIVE DEFECT PRESETS</div>
-          <h2 className="section-heading">Multi-Modal Defect Inspection</h2>
-          <p className="section-sub">
-            Cycle through simulated specimens across casting, machining, and rim finishing lines.
-          </p>
-        </div>
-
-        <div className="preset-tabs-row">
-          {SAMPLE_WHEELS.map((w, idx) => (
-            <button
-              key={w.wheel_id}
-              className={`preset-tab-pill ${activeDefectIndex === idx ? 'active' : ''}`}
-              onClick={() => setActiveDefectIndex(idx)}
-            >
-              <span className={`status-indicator-dot ${w.status === 'PASS' || w.status === 'PASSED' || !w.defect ? 'dot-pass' : 'dot-crit'}`}></span>
-              <span className="mono">{w.wheel_id}</span>
-              <span className="tab-defect-name">{w.defect ? w.defect.defect_type : 'Nominal Pass'}</span>
-            </button>
-          ))}
-        </div>
-
-        {/* Selected Sample Deep Dive */}
-        <div className="glass-panel showcase-card">
-          <div className="showcase-grid">
-            {/* Visual Preview */}
-            <div className="showcase-visual-wrapper">
-              <div className="showcase-mock-rim">
-                <svg viewBox="0 0 300 300" className="mock-rim-svg">
-                  <circle cx="150" cy="150" r="140" fill="#0f172a" stroke="#334155" strokeWidth="12" />
-                  <circle cx="150" cy="150" r="128" fill="#1e293b" stroke="#0284c7" strokeWidth="2" strokeDasharray="4 2" />
-                  <circle cx="150" cy="150" r="115" fill="#0b1329" stroke="#64748b" strokeWidth="4" />
-                  
-                  {/* Wheel Spokes */}
-                  <g stroke="#94a3b8" strokeWidth="14" strokeLinecap="round" opacity="0.9">
-                    <line x1="150" y1="150" x2="150" y2="40" />
-                    <line x1="150" y1="150" x2="255" y2="115" />
-                    <line x1="150" y1="150" x2="215" y2="240" />
-                    <line x1="150" y1="150" x2="85" y2="240" />
-                    <line x1="150" y1="150" x2="45" y2="115" />
-                  </g>
-                  
-                  <circle cx="150" cy="150" r="42" fill="#0f172a" stroke="#38bdf8" strokeWidth="3" />
-                  <circle cx="150" cy="150" r="14" fill="#0284c7" />
-
-                  {/* Defect Bounding Box if not nominal pass */}
-                  {sample.defect && (
-                    <g className="showcase-defect-marker">
-                      <rect
-                        x={`${sample.defect.location.x * 2.6}`}
-                        y={`${sample.defect.location.y * 2.6}`}
-                        width={`${sample.defect.location.width * 2.6}`}
-                        height={`${sample.defect.location.height * 2.6}`}
-                        fill="rgba(239, 68, 68, 0.25)"
-                        stroke="#ef4444"
-                        strokeWidth="2.5"
-                        strokeDasharray="4 2"
-                      />
-                      <circle
-                        cx={`${(sample.defect.location.x + sample.defect.location.width / 2) * 2.6}`}
-                        cy={`${(sample.defect.location.y + sample.defect.location.height / 2) * 2.6}`}
-                        r="5"
-                        fill="#ef4444"
-                      />
-                    </g>
-                  )}
-                </svg>
-
-                <div className="showcase-status-badge">
-                  {!sample.defect || sample.status === 'PASS' || sample.status === 'PASSED' ? (
-                    <span className="badge-pass">PASS • NOMINAL RELEASE</span>
-                  ) : (
-                    <span className="badge-crit">DEFECT DETECTED • {sample.defect.severity.toUpperCase()}</span>
-                  )}
-                </div>
-              </div>
+        {SAMPLE_WHEELS.length > 0 && sample ? (
+          <>
+            <div className="section-header">
+              <div className="section-eyebrow">LIVE DEFECT PRESETS</div>
+              <h2 className="section-heading">Multi-Modal Defect Inspection</h2>
+              <p className="section-sub">
+                Cycle through simulated specimens across casting, machining, and rim finishing lines.
+              </p>
             </div>
 
-            {/* Specimen Telemetry Brief */}
-            <div className="showcase-info-wrapper">
-              <div className="showcase-header">
-                <div>
-                  <h3 className="showcase-title">{sample.wheel_model}</h3>
-                  <div className="showcase-meta mono">
-                    <span>{sample.wheel_id}</span> • <span>{sample.alloy}</span> • <span>{sample.rim_diameter}</span>
+            <div className="preset-tabs-row">
+              {SAMPLE_WHEELS.map((w, idx) => (
+                <button
+                  key={w.wheel_id}
+                  className={`preset-tab-pill ${activeDefectIndex === idx ? 'active' : ''}`}
+                  onClick={() => setActiveDefectIndex(idx)}
+                >
+                  <span className={`status-indicator-dot ${w.status === 'PASS' || w.status === 'PASSED' || !w.defect ? 'dot-pass' : 'dot-crit'}`}></span>
+                  <span className="mono">{w.wheel_id}</span>
+                  <span className="tab-defect-name">{w.defect ? w.defect.defect_type : 'Nominal Pass'}</span>
+                </button>
+              ))}
+            </div>
+
+            <div className="glass-panel showcase-card">
+              <div className="showcase-grid">
+                <div className="showcase-visual-wrapper">
+                  <div className="showcase-mock-rim">
+                    <svg viewBox="0 0 300 300" className="mock-rim-svg">
+                      <circle cx="150" cy="150" r="140" fill="#0f172a" stroke="#334155" strokeWidth="12" />
+                      <circle cx="150" cy="150" r="128" fill="#1e293b" stroke="#0284c7" strokeWidth="2" strokeDasharray="4 2" />
+                      <circle cx="150" cy="150" r="115" fill="#0b1329" stroke="#64748b" strokeWidth="4" />
+                      
+                      <g stroke="#94a3b8" strokeWidth="14" strokeLinecap="round" opacity="0.9">
+                        <line x1="150" y1="150" x2="150" y2="40" />
+                        <line x1="150" y1="150" x2="255" y2="115" />
+                        <line x1="150" y1="150" x2="215" y2="240" />
+                        <line x1="150" y1="150" x2="85" y2="240" />
+                        <line x1="150" y1="150" x2="45" y2="115" />
+                      </g>
+                      
+                      <circle cx="150" cy="150" r="42" fill="#0f172a" stroke="#38bdf8" strokeWidth="3" />
+                      <circle cx="150" cy="150" r="14" fill="#0284c7" />
+
+                      {sample.defect && (
+                        <g className="showcase-defect-marker">
+                          <rect
+                            x={`${sample.defect.location.x * 2.6}`}
+                            y={`${sample.defect.location.y * 2.6}`}
+                            width={`${sample.defect.location.width * 2.6}`}
+                            height={`${sample.defect.location.height * 2.6}`}
+                            fill="rgba(239, 68, 68, 0.25)"
+                            stroke="#ef4444"
+                            strokeWidth="2.5"
+                            strokeDasharray="4 2"
+                          />
+                          <circle
+                            cx={`${(sample.defect.location.x + sample.defect.location.width / 2) * 2.6}`}
+                            cy={`${(sample.defect.location.y + sample.defect.location.height / 2) * 2.6}`}
+                            r="5"
+                            fill="#ef4444"
+                          />
+                        </g>
+                      )}
+                    </svg>
+
+                    <div className="showcase-status-badge">
+                      {!sample.defect || sample.status === 'PASS' || sample.status === 'PASSED' ? (
+                        <span className="badge-pass">PASS • NOMINAL RELEASE</span>
+                      ) : (
+                        <span className="badge-crit">DEFECT DETECTED • {sample.defect.severity.toUpperCase()}</span>
+                      )}
+                    </div>
                   </div>
                 </div>
-                <button
-                  className="btn btn-secondary btn-sm"
-                  onClick={() => onSelectSample(activeDefectIndex)}
-                >
-                  Load in Cockpit →
-                </button>
-              </div>
 
-              {sample.defect ? (
-                <div className="showcase-defect-details">
-                  <div className="detail-item">
-                    <label>Defect Classification</label>
-                    <div className="detail-value text-rose">{sample.defect.defect_type}</div>
-                  </div>
-                  <div className="detail-grid-2">
-                    <div className="detail-item">
-                      <label>Severity Level</label>
-                      <div className="detail-value text-amber">{sample.defect.severity}</div>
-                    </div>
-                    <div className="detail-item">
-                      <label>Confidence</label>
-                      <div className="detail-value mono text-cyan">
-                        {(sample.defect.confidence * 100).toFixed(1)}%
+                <div className="showcase-info-wrapper">
+                  <div className="showcase-header">
+                    <div>
+                      <h3 className="showcase-title">{sample.wheel_model}</h3>
+                      <div className="showcase-meta mono">
+                        <span>{sample.wheel_id}</span> • <span>{sample.alloy}</span> • <span>{sample.rim_diameter}</span>
                       </div>
                     </div>
+                    <button
+                      className="btn btn-secondary btn-sm"
+                      onClick={() => onSelectSample(activeDefectIndex)}
+                    >
+                      Load in Cockpit →
+                    </button>
                   </div>
-                  <div className="detail-item">
-                    <label>Structural Impact</label>
-                    <p className="detail-desc">{sample.defect.safety_impact}</p>
-                  </div>
-                  <div className="detail-item">
-                    <label>RCA Attributed Parameter</label>
-                    <div className="detail-value text-emerald">{sample.rca.root_cause}</div>
-                  </div>
+
+                  {sample.defect ? (
+                    <div className="showcase-defect-details">
+                      <div className="detail-item">
+                        <label>Defect Classification</label>
+                        <div className="detail-value text-rose">{sample.defect.defect_type}</div>
+                      </div>
+                      <div className="detail-grid-2">
+                        <div className="detail-item">
+                          <label>Severity Level</label>
+                          <div className="detail-value text-amber">{sample.defect.severity}</div>
+                        </div>
+                        <div className="detail-item">
+                          <label>Confidence</label>
+                          <div className="detail-value mono text-cyan">
+                            {(sample.defect.confidence * 100).toFixed(1)}%
+                          </div>
+                        </div>
+                      </div>
+                      <div className="detail-item">
+                        <label>Structural Impact</label>
+                        <p className="detail-desc">{sample.defect.safety_impact}</p>
+                      </div>
+                      <div className="detail-item">
+                        <label>RCA Attributed Parameter</label>
+                        <div className="detail-value text-emerald">{sample.rca.root_cause}</div>
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="showcase-pass-details">
+                      <div className="pass-icon-check">✓</div>
+                      <h4>Zero Anomaly Defect Free Specimen</h4>
+                      <p>
+                        All multi-angle camera scans and rim runout tolerances comply with SAE J328 fatigue and dimensional requirements.
+                      </p>
+                    </div>
+                  )}
                 </div>
-              ) : (
-                <div className="showcase-pass-details">
-                  <div className="pass-icon-check">✓</div>
-                  <h4>Zero Anomaly Defect Free Specimen</h4>
-                  <p>
-                    All multi-angle camera scans and rim runout tolerances comply with SAE J328 fatigue and dimensional requirements.
-                  </p>
-                  <div className="pass-tags">
-                    <span className="tag">Radial Runout: &lt; 0.3mm</span>
-                    <span className="tag">Porosity Index: 0.00</span>
-                    <span className="tag">Rim Balance: Nominal</span>
-                  </div>
+              </div>
+            </div>
+          </>
+        ) : (
+          /* Live Production Mode: Zero Mock Data State */
+          <div className="glass-panel" style={{ padding: '2rem', border: '1px solid rgba(0, 240, 255, 0.25)', borderRadius: '16px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1.5rem', flexWrap: 'wrap', gap: '1rem' }}>
+              <div>
+                <div className="section-eyebrow" style={{ color: '#00f0ff' }}>DUAL-STREAM QUALITY INSPECTION ARCHITECTURE</div>
+                <h2 style={{ fontSize: '1.5rem', fontWeight: '700', color: '#f8fafc', margin: '0.25rem 0' }}>
+                  Independent Rim & Tyre Classifications → Unified Quality Gate Verdict
+                </h2>
+                <p style={{ color: '#94a3b8', fontSize: '0.9rem', margin: 0 }}>
+                  Live ingestion mode active. Upload specimen images in the Inspection Cockpit to test the parallel Rim & Tyre defect classifiers.
+                </p>
+              </div>
+              <button className="btn btn-primary" onClick={onLaunchDashboard}>
+                <svg viewBox="0 0 20 20" width="16" height="16" fill="currentColor">
+                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clipRule="evenodd" />
+                </svg>
+                Launch Cockpit & Upload Image →
+              </button>
+            </div>
+
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.25rem' }}>
+              {/* Rim Taxonomy */}
+              <div style={{ background: 'rgba(15, 23, 42, 0.65)', border: '1px solid rgba(56, 189, 248, 0.2)', borderRadius: '12px', padding: '1.25rem' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.75rem' }}>
+                  <span className="status-indicator-dot dot-pass"></span>
+                  <span style={{ fontWeight: '600', color: '#38bdf8', fontSize: '0.95rem' }}>Sub-Assembly A: Rim Defects (9 Classes)</span>
                 </div>
-              )}
+                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.35rem' }}>
+                  {RIM_DEFECT_CLASSES.map((r) => (
+                    <span key={r.key} style={{ background: 'rgba(56, 189, 248, 0.1)', color: '#bae6fd', fontSize: '0.75rem', padding: '0.2rem 0.5rem', borderRadius: '4px', border: '1px solid rgba(56, 189, 248, 0.2)' }}>
+                      {r.name}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              {/* Tyre Taxonomy */}
+              <div style={{ background: 'rgba(15, 23, 42, 0.65)', border: '1px solid rgba(168, 85, 247, 0.2)', borderRadius: '12px', padding: '1.25rem' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.75rem' }}>
+                  <span className="status-indicator-dot" style={{ backgroundColor: '#a855f7' }}></span>
+                  <span style={{ fontWeight: '600', color: '#c084fc', fontSize: '0.95rem' }}>Sub-Assembly B: Tyre Defects (14 Classes: 0–13)</span>
+                </div>
+                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.35rem' }}>
+                  {TYRE_DEFECT_CLASSES.map((t) => (
+                    <span key={t.key} style={{ background: 'rgba(168, 85, 247, 0.1)', color: '#e9d5ff', fontSize: '0.75rem', padding: '0.2rem 0.5rem', borderRadius: '4px', border: '1px solid rgba(168, 85, 247, 0.2)' }}>
+                      #{t.id} {t.name}
+                    </span>
+                  ))}
+                </div>
+              </div>
             </div>
           </div>
-        </div>
+        )}
       </section>
 
       {/* Core Capabilities Pillars */}
@@ -337,7 +362,7 @@ export default function Landing({ onLaunchDashboard, onOpenFlowchart, onSelectSa
             <div className="mini-arrow">↓</div>
             <div className="mini-step active-step">
               <span className="mini-num">02</span>
-              <span className="mini-title">AI Defect Detection & B-Box</span>
+              <span className="mini-title">Defect Detection & Localization</span>
               <span className="mini-latency">38ms</span>
             </div>
             <div className="mini-arrow">↓</div>
@@ -349,7 +374,7 @@ export default function Landing({ onLaunchDashboard, onOpenFlowchart, onSelectSa
             <div className="mini-arrow">↓</div>
             <div className="mini-step">
               <span className="mini-num">06</span>
-              <span className="mini-title">Explainable TreeSHAP RCA</span>
+              <span className="mini-title">Process Root Cause Attribution</span>
               <span className="mini-latency">22ms</span>
             </div>
             <div className="mini-preview-overlay">
@@ -372,13 +397,13 @@ export default function Landing({ onLaunchDashboard, onOpenFlowchart, onSelectSa
                   <circle cx="20" cy="20" r="4" fill="#38bdf8" />
                 </svg>
               </div>
-              <span>WHEEL QUALITY INTELLIGENCE</span>
+              <span>WHEEL & TYRE QUALITY</span>
             </div>
             <p className="footer-brand-tagline">
-              Inspect. Detect. Predict. Prevent.
+              Component Metrology & Process Control
             </p>
             <p className="footer-brand-description">
-              AI-driven visual inspection, explainable root-cause telemetry attribution, and predictive scrap prevention for automotive aluminium alloy wheels & rims.
+              Optical defect inspection, process parameter telemetry attribution, and predictive scrap prevention for automotive alloy wheels & tyres.
             </p>
           </div>
 

@@ -23,4 +23,4 @@
 npm install
 npm run dev
 ```
-Development server will be active at `http://localhost:5173`.
+Development server will be active at `http://localhost:5188`.

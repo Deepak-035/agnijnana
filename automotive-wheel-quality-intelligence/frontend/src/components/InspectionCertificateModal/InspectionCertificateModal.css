@@ -1,0 +1,330 @@
+.cert-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(6, 10, 20, 0.82);
+  backdrop-filter: blur(8px);
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  overflow-y: auto;
+}
+
+.cert-modal-card {
+  background: #0b1324;
+  border: 1px solid rgba(56, 189, 248, 0.35);
+  border-radius: 16px;
+  width: min(880px, 96vw);
+  max-height: 92vh;
+  overflow-y: auto;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.65), 0 0 30px rgba(56, 189, 248, 0.2);
+  display: flex;
+  flex-direction: column;
+}
+
+.cert-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.25rem 1.75rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(15, 23, 42, 0.6);
+}
+
+.cert-header-title {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.cert-header-title h3 {
+  color: #ffffff;
+  font-size: 1.15rem;
+  margin: 0;
+}
+
+.cert-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+/* Document Sheet */
+.cert-document-sheet {
+  background: #0f192e;
+  padding: 2.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  color: #e2e8f0;
+}
+
+.cert-sheet-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.cert-brand {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.cert-brand-title {
+  font-size: 1.25rem;
+  color: #ffffff;
+  font-family: var(--display, 'Outfit', sans-serif);
+  margin: 0;
+  letter-spacing: 0.05em;
+}
+
+.cert-brand-sub {
+  font-size: 0.78rem;
+  color: var(--accent-blue, #38bdf8);
+  margin: 0.15rem 0 0;
+}
+
+.cert-meta-block {
+  font-size: 0.78rem;
+  color: #94a3b8;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  text-align: right;
+}
+
+.cert-divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(56, 189, 248, 0.4), transparent);
+}
+
+/* Stamp Banner */
+.cert-status-banner {
+  padding: 1.25rem;
+  border-radius: 10px;
+  border: 1px solid;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.cert-pass {
+  background: rgba(16, 185, 129, 0.12);
+  border-color: rgba(16, 185, 129, 0.4);
+}
+
+.cert-pass .cert-stamp-badge {
+  color: #10b981;
+}
+
+.cert-scrap {
+  background: rgba(239, 68, 68, 0.12);
+  border-color: rgba(239, 68, 68, 0.4);
+}
+
+.cert-scrap .cert-stamp-badge {
+  color: #ef4444;
+}
+
+.cert-rework {
+  background: rgba(245, 158, 11, 0.12);
+  border-color: rgba(245, 158, 11, 0.4);
+}
+
+.cert-rework .cert-stamp-badge {
+  color: #f59e0b;
+}
+
+.cert-stamp-badge {
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  font-family: var(--display, sans-serif);
+}
+
+.cert-stamp-desc {
+  font-size: 0.85rem;
+  color: #cbd5e1;
+  margin: 0;
+}
+
+/* Spec Grid */
+.cert-spec-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  background: rgba(15, 23, 42, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  padding: 1.25rem;
+  border-radius: 10px;
+}
+
+.cert-spec-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.cert-spec-label {
+  font-size: 0.68rem;
+  color: #64748b;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+}
+
+.cert-spec-val {
+  font-size: 0.88rem;
+  color: #f8fafc;
+  font-weight: 500;
+}
+
+/* Findings Box */
+.cert-findings-box {
+  background: rgba(15, 23, 42, 0.6);
+  border: 1px solid rgba(56, 189, 248, 0.2);
+  border-radius: 10px;
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.cert-findings-title {
+  color: var(--accent-cyan, #00f0ff);
+  font-size: 0.92rem;
+  margin: 0;
+}
+
+.cert-findings-pass {
+  font-size: 0.85rem;
+  color: #34d399;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.cert-defect-details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+}
+
+.cert-defect-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+  padding-bottom: 0.35rem;
+  border-bottom: 1px dashed rgba(255, 255, 255, 0.08);
+}
+
+/* Signature & QR Row */
+.cert-signature-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 2rem;
+  padding-top: 1rem;
+  margin-top: 0.5rem;
+}
+
+.cert-sign-col {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  flex: 1;
+}
+
+.cert-sign-line {
+  height: 1px;
+  background: rgba(148, 163, 184, 0.4);
+  width: 100%;
+  margin-bottom: 0.25rem;
+}
+
+.cert-sign-col span {
+  font-size: 0.82rem;
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.cert-sign-col em {
+  font-size: 0.7rem;
+  color: #94a3b8;
+  font-style: normal;
+}
+
+.cert-qr-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.cert-qr-box {
+  width: 72px;
+  height: 72px;
+  border: 1px solid var(--accent-cyan, #00f0ff);
+  background: rgba(0, 240, 255, 0.05);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.65rem;
+  color: var(--accent-cyan, #00f0ff);
+  border-radius: 6px;
+}
+
+.cert-qr-sub {
+  font-size: 0.68rem;
+  color: #64748b;
+}
+
+@media print {
+  body * {
+    visibility: hidden;
+  }
+  .cert-modal-backdrop,
+  .cert-modal-card,
+  .cert-document-sheet,
+  .cert-document-sheet * {
+    visibility: visible;
+  }
+  .cert-modal-backdrop {
+    position: absolute;
+    inset: 0;
+    background: #ffffff;
+    padding: 0;
+  }
+  .cert-modal-card {
+    border: none;
+    box-shadow: none;
+    width: 100%;
+    max-height: none;
+    background: #ffffff;
+  }
+  .cert-document-sheet {
+    background: #ffffff;
+    color: #000000;
+    padding: 2cm;
+  }
+  .cert-modal-header,
+  .no-print {
+    display: none !important;
+  }
+  .cert-brand-title { color: #000000; }
+  .cert-brand-sub { color: #0284c7; }
+  .cert-spec-grid, .cert-findings-box {
+    background: #f8fafc;
+    border-color: #cbd5e1;
+  }
+  .cert-spec-val { color: #000000; }
+  .cert-findings-title { color: #0284c7; }
+  .cert-pass { background: #f0fdf4; border-color: #22c55e; }
+  .cert-scrap { background: #fef2f2; border-color: #ef4444; }
+  .cert-rework { background: #fffbeb; border-color: #f59e0b; }
+}

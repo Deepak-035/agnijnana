@@ -8,9 +8,9 @@ export default function ArchitecturePage({ onLaunchDashboard }) {
       <div className="page-header-strip">
         <div>
           <div className="section-eyebrow">ENTERPRISE ARCHITECTURE</div>
-          <h2 className="page-main-heading">System Architecture & AI Data Contracts</h2>
+          <h2 className="page-main-heading">System Architecture & Data Contracts</h2>
           <p className="page-sub-heading">
-            API schemas and pipeline contracts for the wheel quality system.
+            API schemas and pipeline contracts for the wheel & tyre quality system.
           </p>
         </div>
         <button className="btn btn-primary" onClick={onLaunchDashboard}>

@@ -2,7 +2,31 @@ import React from 'react';
 import './Recommendation.css';
 
 export default function Recommendation({ wheel, onDispatchAction }) {
-  const rec = wheel.recommendation;
+  const rec = wheel?.recommendation;
+
+  if (!rec) {
+    return (
+      <div className="glass-panel col-6 recommendation-panel">
+        <div className="rec-header">
+          <div className="rec-title-wrap">
+            <span className="section-eyebrow">COUNTERMEASURES</span>
+            <h3 className="rec-heading">Corrective Action</h3>
+          </div>
+          <span className="badge badge-info mono">SOP STANDBY</span>
+        </div>
+        <div className="rec-body-card" style={{ borderStyle: 'dashed' }}>
+          <div className="rec-meta-top">
+            <span className="rec-title">Standard Operating Procedure Dispatcher</span>
+            <span className="badge badge-info">AWAITING SPECIMEN</span>
+          </div>
+          <p className="rec-action-text mono text-cyan">
+            ⚡ Prescriptive maintenance countermeasures and automated work orders will generate upon defect detection.
+          </p>
+        </div>
+      </div>
+    );
+  }
+
   const isImmediate = rec.priority === 'IMMEDIATE';
   const isShift = rec.priority === 'SCHEDULED_SHIFT_END';
 

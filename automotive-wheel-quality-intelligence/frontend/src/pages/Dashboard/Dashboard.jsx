@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import WheelInspection from '../../components/WheelInspection/WheelInspection';
 import DefectViewer from '../../components/DefectViewer/DefectViewer';
 import SeverityCard from '../../components/SeverityCard/SeverityCard';
@@ -8,8 +8,45 @@ import Recommendation from '../../components/Recommendation/Recommendation';
 import Alerts from '../../components/Alerts/Alerts';
 import BatchTable from '../../components/BatchTable/BatchTable';
 import MachineStatus from '../../components/MachineStatus/MachineStatus';
+import HistoricalTrends from '../../components/HistoricalTrends/HistoricalTrends';
+import InspectionCertificateModal from '../../components/InspectionCertificateModal/InspectionCertificateModal';
 import { SAMPLE_WHEELS } from '../../data/mockData';
 import './Dashboard.css';
+
+// Audio feedback helper using Web Audio API (zero external assets needed)
+function playIndustrialTone(type = 'chime') {
+  try {
+    const ctx = new (window.AudioContext || window.webkitAudioContext)();
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.connect(gain);
+    gain.connect(ctx.destination);
+
+    if (type === 'pass') {
+      osc.frequency.setValueAtTime(587.33, ctx.currentTime); // D5
+      osc.frequency.exponentialRampToValueAtTime(880, ctx.currentTime + 0.12); // A5
+      gain.gain.setValueAtTime(0.08, ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.25);
+      osc.start();
+      osc.stop(ctx.currentTime + 0.25);
+    } else if (type === 'crit') {
+      osc.frequency.setValueAtTime(320, ctx.currentTime);
+      osc.frequency.setValueAtTime(220, ctx.currentTime + 0.08);
+      gain.gain.setValueAtTime(0.12, ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.35);
+      osc.start();
+      osc.stop(ctx.currentTime + 0.35);
+    } else {
+      osc.frequency.setValueAtTime(520, ctx.currentTime);
+      gain.gain.setValueAtTime(0.06, ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.15);
+      osc.start();
+      osc.stop(ctx.currentTime + 0.15);
+    }
+  } catch {
+    // Audio context not allowed or unsupported
+  }
+}
 
 export default function Dashboard({
   selectedWheelIndex,
@@ -19,23 +56,54 @@ export default function Dashboard({
   const [customImage, setCustomImage] = useState(null);
   const [customWheelData, setCustomWheelData] = useState(null);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
+  const [isCertModalOpen, setIsCertModalOpen] = useState(false);
 
   // Active wheel either from custom image or preset
   const activeWheel = customWheelData || SAMPLE_WHEELS[selectedWheelIndex];
 
+  // Hotkey Navigation Support
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      // Don't trigger if user is typing in an input
+      if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+
+      if (e.key === ' ' || e.code === 'Space') {
+        e.preventDefault();
+        handleTriggerInspection();
+      } else if (e.key === 'a' || e.key === 'A') {
+        handleTriggerDisposition('LINE_RELEASE');
+      } else if (e.key === 'x' || e.key === 'X') {
+        handleTriggerDisposition('SCRAP_QUARANTINE');
+      } else if (e.key === 'w' || e.key === 'W') {
+        handleTriggerDisposition('ROBOTIC_REWORK');
+      } else if (['1', '2', '3', '4', '5'].includes(e.key)) {
+        const idx = parseInt(e.key, 10) - 1;
+        if (idx < SAMPLE_WHEELS.length) {
+          handleResetCustom();
+          setSelectedWheelIndex(idx);
+          playIndustrialTone('click');
+        }
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [selectedWheelIndex]);
+
   const handleUploadCustomImage = (dataUrl, fileName) => {
     setCustomImage(dataUrl);
     setIsAnalyzing(true);
+    playIndustrialTone('click');
     if (onNotify) {
       onNotify(`Uploaded ${fileName}. Running vision defect detection and RCA...`, 'info');
     }
 
-    // Simulate AI inference pipeline
+    // Simulate AI dual-stream inference pipeline (Rim Classifier + Tyre Classifier -> Combined Verdict)
     setTimeout(() => {
       setCustomWheelData({
         wheel_id: `UPLOAD-${Math.floor(1000 + Math.random() * 9000)}`,
-        wheel_model: 'Custom Aluminium Alloy Wheel / Rim',
-        alloy: 'Aluminium A356.2 T6',
+        wheel_model: 'Alloy Wheel & Tyre Assembly',
+        alloy: 'Aluminium A356.2 T6 / Radial Ply Casing',
         rim_diameter: '19 inch',
         rim_width: '8.5J',
         spoke_count: 5,
@@ -43,21 +111,52 @@ export default function Dashboard({
         machine_id: 'HPDC-Unit-02',
         production_cycle: 14220,
         inspection_timestamp: new Date().toISOString().replace('T', ' ').substring(0, 19),
-        image_type: 'Optical Camera Line Station',
+        image_type: 'Optical RGB + Radioscopic Ingestion',
         status: 'DEFECT_DETECTED',
-        defect: {
-          defect_id: 'DEF-USR-01',
-          defect_type: 'Rim Surface Inclusion & Casting Micro-Fissure',
+        // Dual Sub-Assembly Inferences
+        rim_inspection: {
+          sub_assembly: 'Rim Sub-Assembly',
+          classifier: '9-Class Rim Inspection Model',
+          detected_defect: 'porosity',
+          defect_name: 'Gas Porosity Cluster',
           severity: 'Critical',
+          confidence: 0.942,
           zone: 'Outer Rim Lip Sector 4',
-          confidence: 0.932,
+          location: { x: 58, y: 26, width: 16, height: 18 },
+          dimensions: { length_mm: 14.8, depth_est_mm: 1.9, area_mm2: 28.1 },
+        },
+        tyre_inspection: {
+          sub_assembly: 'Tyre Sub-Assembly',
+          classifier: '14-Class Tyre Inspection Model (0–13)',
+          class_id: 1,
+          detected_defect: 'Bulge',
+          defect_name: 'Sidewall Bulge (Carcass Rupture)',
+          severity: 'Critical',
+          confidence: 0.915,
+          zone: 'Lower Sidewall Quadrant 1',
+          location: { x: 74, y: 48, width: 14, height: 16 },
+          dimensions: { length_mm: 22.4, depth_est_mm: 3.2, area_mm2: 45.6 },
+        },
+        combined_verdict: {
+          overall_status: 'DEFECT_DETECTED',
+          overall_severity: 'Critical',
+          verdict_summary: 'QUARANTINE: Both Rim (Porosity) & Tyre (Bulge) breached structural thresholds.',
+          release_authorized: false,
+          disposition: 'IMMEDIATE_SCRAP',
+        },
+        defect: {
+          defect_id: 'DEF-USR-DUAL-01',
+          defect_type: 'Rim Gas Porosity & Tyre Sidewall Bulge',
+          severity: 'Critical',
+          zone: 'Rim Bead Seat & Tyre Sidewall',
+          confidence: 0.942,
           location: { x: 58, y: 26, width: 16, height: 18 },
           dimensions: { length_mm: 16.2, depth_est_mm: 2.1, area_mm2: 34.0 },
-          safety_impact: 'Radial fatigue risk exceeds allowable containment limits under SAE J328 test standards.',
+          safety_impact: 'Radial fatigue risk exceeds allowable containment limits under SAE J328 & FMVSS-139.',
           disposition: 'IMMEDIATE_SCRAP',
         },
         rca: {
-          root_cause: 'Secondary oxide inclusion entrainment during high-speed plunger shot phase.',
+          root_cause: 'Secondary oxide inclusion during shot phase combined with carcass ply vulcanization defect.',
           confidence: 0.895,
           sensor_telemetry: [
             { name: 'Die Cavity Temp', value: 642, unit: '°C', normal_min: 670, normal_max: 710, status: 'SLIGHT_LOW' },
@@ -93,8 +192,9 @@ export default function Dashboard({
         quarantine_count: 14,
       });
       setIsAnalyzing(false);
+      playIndustrialTone('crit');
       if (onNotify) {
-        onNotify('Vision defect localized & root-cause attributed with 89.5% confidence!', 'success');
+        onNotify('Dual-stream classification complete: Rim & Tyre evaluated individually and synthesized!', 'success');
       }
     }, 900);
   };
@@ -106,30 +206,46 @@ export default function Dashboard({
 
   const handleTriggerInspection = () => {
     setIsAnalyzing(true);
+    playIndustrialTone('click');
     if (onNotify) {
-      onNotify('Simulating real-time wheel optical scan & edge inference...', 'info');
+      onNotify('Running optical scan & defect analysis...', 'info');
     }
     setTimeout(() => {
       setIsAnalyzing(false);
+      const isDefect = !!activeWheel?.defect;
+      playIndustrialTone(isDefect ? 'crit' : 'pass');
       if (onNotify) {
-        onNotify('Inspection complete! Edge inference finished in 34ms.', 'success');
+        onNotify(
+          activeWheel
+            ? 'Inspection complete! Dual-stream analysis finished in 34ms.'
+            : 'Inspection scanner standby: Please upload a specimen image to inspect.',
+          activeWheel ? 'success' : 'info'
+        );
       }
     }, 750);
   };
 
   const handleDispatchAction = (sopCode) => {
+    playIndustrialTone('pass');
     if (onNotify) {
       onNotify(`Dispatched Work Order for ${sopCode} to MES & Maintenance Crew!`, 'success');
     }
   };
 
   const handleTriggerDisposition = (actionType) => {
-    if (onNotify) {
-      if (actionType === 'SCRAP_QUARANTINE') {
-        onNotify('Component marked as SCRAP. Batch BATCH-AL-2026-X89 locked in MES quarantine pool.', 'error');
-      } else if (actionType === 'ROBOTIC_REWORK') {
-        onNotify('Component routed to robotic deburring cell #3 for automated polish.', 'warning');
-      } else {
+    if (actionType === 'SCRAP_QUARANTINE') {
+      playIndustrialTone('crit');
+      if (onNotify) {
+        onNotify('Component marked as SCRAP. Batch locked in MES quarantine pool.', 'error');
+      }
+    } else if (actionType === 'ROBOTIC_REWORK') {
+      playIndustrialTone('click');
+      if (onNotify) {
+        onNotify('Component routed to robotic deburring cell #3 for polish.', 'warning');
+      }
+    } else {
+      playIndustrialTone('pass');
+      if (onNotify) {
         onNotify('Component quality approved! Line release signal dispatched.', 'success');
       }
     }
@@ -137,9 +253,43 @@ export default function Dashboard({
 
   return (
     <div className="dashboard-page">
+      {/* Live Plant Telemetry Ribbon */}
+      <div className="cockpit-live-telemetry-bar">
+        <div className="telemetry-bar-left">
+          <div className="pulse-indicator">
+            <span className="telemetry-beacon"></span>
+            <span className="telemetry-status-text mono">PLANT SCADA: ACTIVE</span>
+          </div>
+          <div className="telemetry-stat-chip mono">
+            <span className="chip-label">TAKT:</span>
+            <span className="chip-val text-emerald">34ms</span>
+          </div>
+          <div className="telemetry-stat-chip mono">
+            <span className="chip-label">LINE SPEED:</span>
+            <span className="chip-val text-cyan">142 RIMS/HR</span>
+          </div>
+          <div className="telemetry-stat-chip mono">
+            <span className="chip-label">MELT / DIE:</span>
+            <span className="chip-val">682°C • 122 BAR</span>
+          </div>
+          <div className="telemetry-stat-chip mono">
+            <span className="chip-label">YIELD:</span>
+            <span className="chip-val text-emerald">97.8% FPY</span>
+          </div>
+        </div>
+
+        <div className="telemetry-bar-right">
+          <div className="hotkeys-guide-pill mono">
+            <span>SHORTCUTS:</span>
+            <kbd>Space</kbd> Scan • <kbd>A</kbd> Pass • <kbd>X</kbd> Scrap • <kbd>W</kbd> Rework
+          </div>
+        </div>
+      </div>
+
       {/* Top Controls & Metadata Bar */}
       <WheelInspection
         wheels={SAMPLE_WHEELS}
+        activeWheel={activeWheel}
         selectedWheelIndex={selectedWheelIndex}
         onSelectWheel={setSelectedWheelIndex}
         customImage={customImage}
@@ -147,6 +297,8 @@ export default function Dashboard({
         onResetCustomImage={handleResetCustom}
         onTriggerInspection={handleTriggerInspection}
         isAnalyzing={isAnalyzing}
+        onOpenCertificate={() => setIsCertModalOpen(true)}
+        onNotify={onNotify}
       />
 
       {/* Main Inspection & Severity Row */}
@@ -155,8 +307,13 @@ export default function Dashboard({
           wheel={activeWheel}
           customImage={customImage}
           onUploadCustomImage={handleUploadCustomImage}
+          onNotify={onNotify}
         />
-        <SeverityCard wheel={activeWheel} onTriggerDisposition={handleTriggerDisposition} />
+        <SeverityCard
+          wheel={activeWheel}
+          onTriggerDisposition={handleTriggerDisposition}
+          onNotify={onNotify}
+        />
       </div>
 
       {/* Root-Cause & Risk Forecasting Row */}
@@ -171,11 +328,13 @@ export default function Dashboard({
         <Alerts />
       </div>
 
-      {/* Production Traceability & Machine Fleet */}
-      <div className="dashboard-grid-row">
-        <BatchTable />
-        <MachineStatus />
-      </div>
+      {/* Inspection Quality Certificate Modal */}
+      {isCertModalOpen && (
+        <InspectionCertificateModal
+          wheel={activeWheel}
+          onClose={() => setIsCertModalOpen(false)}
+        />
+      )}
     </div>
   );
 }

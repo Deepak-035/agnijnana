@@ -31,13 +31,13 @@ export default function BatchTable() {
             className={`filter-btn ${filter === 'QUARANTINED' ? 'active' : ''}`}
             onClick={() => setFilter('QUARANTINED')}
           >
-            Quarantined (1)
+            Quarantined ({BATCHES_DATA.filter((b) => b.status === 'QUARANTINED').length})
           </button>
           <button
             className={`filter-btn ${filter === 'RELEASED' ? 'active' : ''}`}
             onClick={() => setFilter('RELEASED')}
           >
-            Released (1)
+            Released ({BATCHES_DATA.filter((b) => b.status === 'RELEASED').length})
           </button>
         </div>
       </div>
@@ -56,7 +56,14 @@ export default function BatchTable() {
             </tr>
           </thead>
           <tbody>
-            {filteredBatches.map((batch) => {
+            {filteredBatches.length === 0 ? (
+              <tr>
+                <td colSpan="7" style={{ textAlign: 'center', padding: '2rem 1rem', color: '#64748b' }} className="mono">
+                  ⚡ Awaiting MES production lot synchronization • Zero mock records active
+                </td>
+              </tr>
+            ) : (
+              filteredBatches.map((batch) => {
               const isQuarantined = batch.status === 'QUARANTINED';
               const isReview = batch.status === 'UNDER_REVIEW';
               const isReleased = batch.status === 'RELEASED';
@@ -90,7 +97,7 @@ export default function BatchTable() {
                   <td className="issue-cell">{batch.primary_issue}</td>
                 </tr>
               );
-            })}
+            }))}
           </tbody>
         </table>
       </div>
