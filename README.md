@@ -22,10 +22,50 @@ Agnijnana is an AI-powered automotive wheel quality inspection system developed 
 
 ## Tech Stack
 
-- **AI/ML:** YOLO, Computer Vision
-- **Backend:** Server-side development and API integration
-- **Database:** Database management and storage
-- **Frontend:** Web technologies
+### Frontend
+- React.js (18)
+- Vite
+- Three.js
+- React Three Fiber
+- React Three Drei
+- React Three Postprocessing
+
+### Backend
+- Python
+- FastAPI
+- Uvicorn
+- Pydantic
+- SQLAlchemy
+- Psycopg2
+
+### AI / Machine Learning
+- PyTorch
+- TorchVision
+- Ultralytics YOLO
+- OpenCV
+- Pillow (PIL)
+
+### Database
+- PostgreSQL
+- Supabase (PostgreSQL database platform)
+
+### Data Processing & Evaluation
+- NumPy
+- Pandas
+- Scikit-learn
+- Matplotlib
+- PyYAML
+
+### Testing & Utilities
+- Pytest
+- HTTPX
+- Python Dotenv
+- tqdm
+
+### Development Tools
+- Git
+- GitHub
+- Vite Development Server
 
 ## Repository
 
