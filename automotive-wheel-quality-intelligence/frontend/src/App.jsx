@@ -42,6 +42,7 @@ export default function App() {
   };
 
   const handleReplayIntro = () => {
+    sessionStorage.removeItem('wqi-intro');
     setShow3DIntro(true);
   };
 

@@ -9,4 +9,12 @@ export default defineConfig({
     host: '127.0.0.1',
     strictPort: true,
   },
+  build: {
+    chunkSizeWarningLimit: 1200,
+    rollupOptions: {
+      output: {
+        manualChunks: { three: ['three'] },
+      },
+    },
+  },
 });

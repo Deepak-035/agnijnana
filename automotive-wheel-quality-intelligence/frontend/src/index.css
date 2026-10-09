@@ -1,4 +1,15 @@
 :root {
+  /* 3D Intro Design Tokens */
+  --bg: #060a14;
+  --cyan: #00f0ff;
+  --blue: #38bdf8;
+  --ink: #e6faff;
+  --dim: #7fa6b8;
+  --warn: #ffb020;
+  --crit: #ff4d5e;
+  --display: 'Chakra Petch', 'Outfit', 'Segoe UI', system-ui, sans-serif;
+  --mono: 'IBM Plex Mono', 'JetBrains Mono', ui-monospace, monospace;
+
   --bg-primary: #070b14;
   --bg-secondary: #0c1424;
   --bg-card: rgba(15, 23, 42, 0.75);
