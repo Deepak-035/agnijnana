@@ -1,0 +1,137 @@
+.architecture-page-layout {
+  padding: 1.5rem 2rem 3rem 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+  max-width: 1300px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.arch-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+}
+
+.arch-card {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.arch-card-title {
+  font-size: 1.15rem;
+  color: #ffffff;
+}
+
+.arch-card-desc {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+
+.arch-code-block {
+  background: rgba(8, 12, 22, 0.95);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  padding: 1rem;
+  font-size: 0.78rem;
+  color: var(--accent-cyan);
+  overflow-x: auto;
+  line-height: 1.45;
+}
+
+.pipeline-arch-container {
+  padding: 1.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.pipeline-flow-diagram {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  overflow-x: auto;
+  padding-bottom: 0.5rem;
+}
+
+.flow-step-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 0.4rem;
+  min-width: 130px;
+}
+
+.flow-step-dot {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-weight: 700;
+  box-shadow: 0 0 12px rgba(2, 132, 199, 0.4);
+}
+
+.flow-step-title {
+  font-size: 0.78rem;
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.flow-step-lat {
+  font-size: 0.68rem;
+  color: var(--accent-cyan);
+}
+
+.team-ownership-card {
+  padding: 1.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.team-specs-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+}
+
+.team-spec-col {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.spec-name {
+  font-size: 1.05rem;
+  color: #ffffff;
+}
+
+.spec-role {
+  font-size: 0.74rem;
+  color: var(--accent-blue);
+}
+
+.spec-focus {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  line-height: 1.45;
+}
+
+@media (max-width: 1024px) {
+  .arch-cards-grid {
+    grid-template-columns: 1fr;
+  }
+  .team-specs-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
